@@ -74,4 +74,11 @@ describe("scorer", function ()
       {oops="ELIMINATED"}
     )
   end)
+
+  it("awards 10 points for sets of 5 colors", function ()
+    assert.are.same(
+      scorer{twentyfive="YBROW", fiftyfour="YYBBRROOWW"},
+      {twentyfive=25, fiftyfour=54}
+    )
+  end)
 end)

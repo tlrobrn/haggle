@@ -65,6 +65,15 @@ local function isEliminated(hand)
   return false
 end
 
+local function setBonus(hand)
+  local sets = math.maxinteger
+  for _, count in pairs(hand) do
+    sets = math.min(sets, count)
+  end
+
+  return sets * 10
+end
+
 local function calculate(hands, player)
   local hand = hands[player]
   if isEliminated(hand) then
@@ -89,6 +98,7 @@ local function calculate(hands, player)
     + whiteValue * hand.W
     - 10 * bluePenalties
     + yellowBonus
+    + setBonus(hand)
   )
 end
 
