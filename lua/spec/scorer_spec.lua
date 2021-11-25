@@ -116,4 +116,15 @@ describe("scorer", function ()
       {twentyeight=28}
     )
   end)
+
+  it("does not score more than 13 cards", function ()
+    assert.are.same(
+      scorer{sixty="YYYYYYBBBBBBR"},
+      {sixty=60}
+    )
+    assert.are_not.same(
+      scorer{notSixtysix="YYYYYYBBBBBBRR"},
+      {notSixtysix=66}
+    )
+  end)
 end)

@@ -1,4 +1,20 @@
+local function shuffled(ot)
+  local t = {table.unpack(ot)}
+  for i = 1, #t - 1 do
+    local r = math.random(i, #t)
+    t[i], t[r] = t[r], t[i]
+  end
+
+  return t
+end
+
 local function parseHand(handString)
+  local cards = {}
+  for card in handString:gmatch"." do
+    cards[#cards + 1] = card
+  end
+  local shuffledCards = shuffled(cards)
+
   local cardCounts = {
     Y=0,
     B=0,
@@ -7,7 +23,7 @@ local function parseHand(handString)
     W=0,
   }
 
-  for color in handString:gmatch"." do
+  for _, color in ipairs({table.unpack(shuffledCards, 1, 13)}) do
     cardCounts[color] = cardCounts[color] + 1
   end
 
@@ -155,7 +171,7 @@ local function scorer(handStrings)
   local hands = parseHands(handStrings)
   local scores = {}
 
-  for player, hand in pairs(hands) do
+  for player, _ in pairs(hands) do
     scores[player] = calculate(hands, player)
   end
 
