@@ -46,4 +46,11 @@ describe("scorer", function ()
       {six=6}
     )
   end)
+
+  it("subtracts 10 from every other player if a hand has 5 or more Blue cards", function ()
+    assert.are.same(
+      scorer{zero="BBBBB", one="BBBBBY", negativeNineteen="Y"},
+      {zero=0, one=1, negativeNineteen=-19}
+    )
+  end)
 end)
