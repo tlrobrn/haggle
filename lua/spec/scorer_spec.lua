@@ -14,8 +14,8 @@ describe("scorer", function ()
 
   it("scores Red as 3", function ()
     assert.are.same(
-      scorer{three="R", six="RR", five="RB"},
-      {three=3, six=6, five=5}
+      scorer{three="R", twelve="RR", five="RB"},
+      {three=3, twelve=12, five=5}
     )
   end)
 
@@ -56,8 +56,8 @@ describe("scorer", function ()
 
   it("does not subtract 10 for a set of 5 Blues in other hands if it has 3 Red cards", function ()
     assert.are.same(
-      scorer{zero="RRRY", two="BBBBBB", one="BBBBBY", eighteen="RRRRRR"},
-      {zero=0, two=2, one=1, eighteen=18}
+      scorer{zero="RRRY", two="BBBBBB", one="BBBBBY", thirtysix="RRRRRR"},
+      {zero=0, two=2, one=1, thirtysix=36}
     )
   end)
 
@@ -77,15 +77,29 @@ describe("scorer", function ()
 
   it("awards 10 points for sets of 5 colors", function ()
     assert.are.same(
-      scorer{twentyfive="YBROW", fiftyfour="YYBBRROOWW"},
-      {twentyfive=25, fiftyfour=54}
+      scorer{twentyfive="YBROW", sixty="YYBBRROOWW"},
+      {twentyfive=25, sixty=60}
     )
   end)
 
   it("doubles the score for pyramid hands", function ()
     assert.are.same(
-      scorer{fortysix="YBBRRROOOO"},
-      {fortysix=46}
+      scorer{sixtyfour="YBBRRROOOO"},
+      {sixtyfour=64}
+    )
+  end)
+
+  it("doubles the value of Red for the hand with the most Red cards", function ()
+    assert.are.same(
+      scorer{five="BR", fourteen="BRR"},
+      {five=5, fourteen=14}
+    )
+  end)
+
+  it("does not double Red values if there is a tie for most red", function ()
+    assert.are.same(
+      scorer{three="R", five="YR"},
+      {three=3, five=5}
     )
   end)
 end)

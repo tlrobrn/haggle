@@ -25,13 +25,13 @@ local function otherHands(hands, player)
   return result
 end
 
-local function sortByYellow(hands)
+local function sortByColor(hands, color)
   local list = {}
   for name, hand in pairs(hands) do
     list[#list + 1] = {name, hand}
   end
 
-  table.sort(list, function (a, b) return a[2].Y > b[2].Y end)
+  table.sort(list, function (a, b) return a[2][color] > b[2][color] end)
 
   return list
 end
@@ -39,7 +39,7 @@ end
 local function yellowBonusRecipient(hands)
   local recipient = nil
   local maxSeen = 0
-  local sortedHands = sortByYellow(hands)
+  local sortedHands = sortByColor(hands, "Y")
 
   for _, playerHand in ipairs(sortedHands) do
     local player, hand = table.unpack(playerHand)
@@ -53,6 +53,23 @@ local function yellowBonusRecipient(hands)
   end
 
   return recipient
+end
+
+local function redBonusRecipient(hands)
+  local sortedHands = sortByColor(hands, "R")
+  if #sortedHands < 2 then
+    if sortedHands[1][2].R > 0 then
+      return sortedHands[1][1]
+    else
+      return nil
+    end
+  end
+
+  if sortedHands[1][2].R > sortedHands[2][2].R then
+    return sortedHands[1][1]
+  end
+
+  return nil
 end
 
 local function isEliminated(hand)
@@ -107,11 +124,12 @@ local function calculate(hands, player)
   end
   bluePenalties = math.max(0, bluePenalties - hand.R // 3 )
   local yellowBonus = player == yellowBonusRecipient(hands) and hand.Y * hand.Y or 0
+  local redBonus = player == redBonusRecipient(hands) and 2 or 1
 
   return (
     hand.Y
     + 2 * hand.B
-    + 3 * hand.R
+    + 3 * hand.R * redBonus
     + 4 * orangeCardsToScore
     + whiteValue * hand.W
     - 10 * bluePenalties
