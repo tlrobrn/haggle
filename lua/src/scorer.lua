@@ -29,12 +29,13 @@ local function calculate(hands, player)
   local hand = hands[player]
   local whiteValue = hand.W > 3 and 0 or 5
   local orangeCardsToScore = math.min(hand.B, hand.O)
-  local bluePenalty = 0
+  local bluePenalties = 0
   for _, otherHand in pairs(otherHands(hands, player)) do
     if otherHand.B >= 5 then
-      bluePenalty = bluePenalty - 10
+      bluePenalties = bluePenalties + 1
     end
   end
+  bluePenalties = math.max(0, bluePenalties - hand.R // 3 )
 
   return (
     hand.Y
@@ -42,7 +43,7 @@ local function calculate(hands, player)
     + 3 * hand.R
     + 4 * orangeCardsToScore
     + whiteValue * hand.W
-    + bluePenalty
+    - 10 * bluePenalties
   )
 end
 

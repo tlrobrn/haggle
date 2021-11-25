@@ -53,4 +53,11 @@ describe("scorer", function ()
       {zero=0, one=1, negativeNineteen=-19}
     )
   end)
+
+  it("does not subtract 10 for a set of 5 Blues in other hands if it has 3 Red cards", function ()
+    assert.are.same(
+      scorer{zero="RRRY", two="BBBBBB", one="BBBBBY", eighteen="RRRRRR"},
+      {zero=0, two=2, one=1, eighteen=18}
+    )
+  end)
 end)
