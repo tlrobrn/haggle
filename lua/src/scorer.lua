@@ -55,8 +55,21 @@ local function yellowBonusRecipient(hands)
   return recipient
 end
 
+local function isEliminated(hand)
+  for _, count in pairs(hand) do
+    if count >= 7 then
+      return true
+    end
+  end
+
+  return false
+end
+
 local function calculate(hands, player)
   local hand = hands[player]
+  if isEliminated(hand) then
+    return "ELIMINATED"
+  end
   local whiteValue = hand.W > 3 and 0 or 5
   local orangeCardsToScore = math.min(hand.B, hand.O)
   local bluePenalties = 0

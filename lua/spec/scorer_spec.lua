@@ -67,4 +67,11 @@ describe("scorer", function ()
       {twelve=12, two=2}
     )
   end)
+
+  it("eliminates players with 7 or more cards in a single color", function ()
+    assert.are.same(
+      scorer{oops="YYYYYYY"},
+      {oops="ELIMINATED"}
+    )
+  end)
 end)
