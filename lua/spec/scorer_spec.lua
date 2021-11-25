@@ -77,8 +77,8 @@ describe("scorer", function ()
 
   it("awards 10 points for sets of 5 colors", function ()
     assert.are.same(
-      scorer{twentyfive="YBROW", sixty="YYBBRROOWW"},
-      {twentyfive=25, sixty=60}
+      scorer{twentyfive="YBROW", sixtyfive="YYBBRROOWW"},
+      {twentyfive=25, sixtyfive=65}
     )
   end)
 
@@ -100,6 +100,13 @@ describe("scorer", function ()
     assert.are.same(
       scorer{three="R", five="YR"},
       {three=3, five=5}
+    )
+  end)
+
+  it("doubles a White value for each set of 2 Yellow cards", function ()
+    assert.are.same(
+      scorer{twentyseven="YYYWW", two="YYWWWW"},
+      {twentyseven=27, two=2}
     )
   end)
 end)

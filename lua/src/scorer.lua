@@ -125,6 +125,7 @@ local function calculate(hands, player)
   bluePenalties = math.max(0, bluePenalties - hand.R // 3 )
   local yellowBonus = player == yellowBonusRecipient(hands) and hand.Y * hand.Y or 0
   local redBonus = player == redBonusRecipient(hands) and 2 or 1
+  local whiteForYellow = math.min(hand.Y // 2, hand.W) * whiteValue
 
   return (
     hand.Y
@@ -135,6 +136,7 @@ local function calculate(hands, player)
     - 10 * bluePenalties
     + yellowBonus
     + setBonus(hand)
+    + whiteForYellow
   ) * pyramidMultiplier(hand)
 end
 
