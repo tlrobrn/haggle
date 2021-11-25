@@ -21,15 +21,15 @@ describe("scorer", function ()
 
   it("scores Orange as 4", function ()
     assert.are.same(
-      scorer{four="O", five="YO"},
-      {four=4, five=5}
+      scorer{six="BO", seven="BYO"},
+      {six=6, seven=7}
     )
   end)
 
   it("scores White as 5", function ()
     assert.are.same(
-      scorer{five="W", nine="WO"},
-      {five=5, nine=9}
+      scorer{five="W", eleven="BWO"},
+      {five=5, eleven=11}
     )
   end)
 
@@ -37,6 +37,13 @@ describe("scorer", function ()
     assert.are.same(
       scorer{fifteen="WWW", one="WWWWY"},
       {fifteen=15, one=1}
+    )
+  end)
+
+  it("only scores as many Orange cards as Blue cards", function ()
+    assert.are.same(
+      scorer{six="OOB"},
+      {six=6}
     )
   end)
 end)

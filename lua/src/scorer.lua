@@ -15,11 +15,13 @@ end
 
 local function calculate(hand)
   local whiteValue = hand.W > 3 and 0 or 5
+  local orangeCardsToScore = math.min(hand.B, hand.O)
+
   return (
     hand.Y
     + 2 * hand.B
     + 3 * hand.R
-    + 4 * hand.O
+    + 4 * orangeCardsToScore
     + whiteValue * hand.W
   )
 end
