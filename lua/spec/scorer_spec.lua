@@ -109,4 +109,11 @@ describe("scorer", function ()
       {twentyseven=27, two=2}
     )
   end)
+
+  it("quadruples an Orange value for each set of 3 Blue cards", function ()
+    assert.are.same(
+      scorer{twentyeight="BBBBOO"},
+      {twentyeight=28}
+    )
+  end)
 end)
