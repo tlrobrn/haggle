@@ -81,4 +81,11 @@ describe("scorer", function ()
       {twentyfive=25, fiftyfour=54}
     )
   end)
+
+  it("doubles the score for pyramid hands", function ()
+    assert.are.same(
+      scorer{fortysix="YBBRRROOOO"},
+      {fortysix=46}
+    )
+  end)
 end)

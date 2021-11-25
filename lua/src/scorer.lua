@@ -74,6 +74,24 @@ local function setBonus(hand)
   return sets * 10
 end
 
+local function pyramidMultiplier(hand)
+  local countSeen = {false, false, false, false}
+  local total = 0
+  for _, count in pairs(hand) do
+    countSeen[count] = true
+    total = total + count
+  end
+  local isPyramid = (
+    countSeen[1]
+    and countSeen[2]
+    and countSeen[3]
+    and countSeen[4]
+    and total == 10
+  )
+
+  return isPyramid and 2 or 1
+end
+
 local function calculate(hands, player)
   local hand = hands[player]
   if isEliminated(hand) then
@@ -99,7 +117,7 @@ local function calculate(hands, player)
     - 10 * bluePenalties
     + yellowBonus
     + setBonus(hand)
-  )
+  ) * pyramidMultiplier(hand)
 end
 
 local function parseHands(handStrings)
