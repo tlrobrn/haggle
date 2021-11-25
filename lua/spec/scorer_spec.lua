@@ -2,27 +2,27 @@ local scorer = require"scorer"
 
 describe("scorer", function ()
   it("scores Yellow as 1", function ()
-    assert.are.same(scorer{one="Y", two="YY"}, {one=1, two=2})
+    assert.are.same(scorer{one="Y", six="YY"}, {one=1, six=6})
   end)
 
   it("scores Blue as 2", function ()
     assert.are.same(
-      scorer{two="B", three="BY", four="BB"},
-      {two=2, three=3, four=4}
+      scorer{two="B", four="BB"},
+      {two=2, four=4}
     )
   end)
 
   it("scores Red as 3", function ()
     assert.are.same(
-      scorer{three="R", four="RY", five="RB"},
-      {three=3, four=4, five=5}
+      scorer{three="R", six="RR", five="RB"},
+      {three=3, six=6, five=5}
     )
   end)
 
   it("scores Orange as 4", function ()
     assert.are.same(
-      scorer{six="BO", seven="BYO"},
-      {six=6, seven=7}
+      scorer{six="BO", eight="BYO"},
+      {six=6, eight=8}
     )
   end)
 
@@ -35,8 +35,8 @@ describe("scorer", function ()
 
   it("scores white as 0 if more than 4 are in the hand", function ()
     assert.are.same(
-      scorer{fifteen="WWW", one="WWWWY"},
-      {fifteen=15, one=1}
+      scorer{fifteen="WWW", two="WWWWY"},
+      {fifteen=15, two=2}
     )
   end)
 
@@ -58,6 +58,13 @@ describe("scorer", function ()
     assert.are.same(
       scorer{zero="RRRY", two="BBBBBB", one="BBBBBY", eighteen="RRRRRR"},
       {zero=0, two=2, one=1, eighteen=18}
+    )
+  end)
+
+  it("gives bonus for the most Yellow cards", function ()
+    assert.are.same(
+      scorer{twelve="YYY", two="YY"},
+      {twelve=12, two=2}
     )
   end)
 end)
