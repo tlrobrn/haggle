@@ -24,13 +24,11 @@ the command would look like:
 
 ```sh
 $ haggle Taylor=YYR Tyler=OWB OtherTaylor=WBRO Dummy=WWWWWWW
-OtherTaylor: 14
-Tyler: 11
-Taylor: 5
-Dummy: ELIMINATED
+1. OtherTaylor: 14
+2. Tyler: 11
+3. Taylor: 9
+4. Dummy: ELIMINATED
 ```
-
-_(Totals in example may not be accurate according to all the rules listed below)_
 
 ## General Game Rules
 
