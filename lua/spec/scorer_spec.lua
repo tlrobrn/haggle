@@ -1,4 +1,4 @@
-local scorer = require"scorer"
+local scorer = require"src.scorer"
 
 describe("scorer", function ()
   it("scores Yellow as 1", function ()

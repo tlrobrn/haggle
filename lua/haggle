@@ -1,0 +1,29 @@
+#!/usr/bin/env lua
+
+local scorer = require"src.scorer"
+
+local hands = {}
+for _, playerHand in ipairs(arg) do
+  for player, hand in playerHand:gmatch("(%w+)=(%w+)") do
+    hands[player] = hand
+  end
+end
+
+local scores = {}
+for name, score in pairs(scorer(hands)) do
+  scores[#scores + 1] = {name, score}
+end
+table.sort(scores, function (a, b)
+  if a[2] == "ELIMINATED" then
+    return false
+  elseif b[2] == "ELIMINATED" then
+    return true
+  else
+    return a[2] > b[2]
+  end
+end)
+
+for position, nameScore in ipairs(scores) do
+  local name, score = table.unpack(nameScore)
+  print(position .. ". " .. name .. ": " .. score)
+end
