@@ -32,4 +32,11 @@ describe("scorer", function ()
       {five=5, nine=9}
     )
   end)
+
+  it("scores white as 0 if more than 4 are in the hand", function ()
+    assert.are.same(
+      scorer{fifteen="WWW", one="WWWWY"},
+      {fifteen=15, one=1}
+    )
+  end)
 end)

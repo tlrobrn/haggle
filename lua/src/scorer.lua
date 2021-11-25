@@ -14,12 +14,13 @@ local function parseHand(hand)
 end
 
 local function calculate(hand)
+  local whiteValue = hand.W > 3 and 0 or 5
   return (
     hand.Y
     + 2 * hand.B
     + 3 * hand.R
     + 4 * hand.O
-    + 5 * hand.W
+    + whiteValue * hand.W
   )
 end
 
